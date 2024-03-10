@@ -32,7 +32,7 @@ model Restaurant {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   cuisine  String
   stars    Int
-  avgPrice Int
+  avgPrice Float
 
   locationId String   @unique @db.ObjectId
   location   Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
@@ -42,8 +42,7 @@ model Museum {
   id               String @id @default(auto()) @map("_id") @db.ObjectId
   artisticMovement String
   artType          String
-  freeOrPaid       String
-  price            Int?
+  freeOrPaid       Float
 
   locationId String   @unique @db.ObjectId
   location   Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
@@ -52,7 +51,7 @@ model Museum {
 model Bar {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   barType  String
-  avgPrice Int
+  avgPrice Float
 
   locationId String   @unique @db.ObjectId
   location   Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
@@ -62,8 +61,7 @@ model Park {
   id         String  @id @default(auto()) @map("_id") @db.ObjectId
   parkType   String
   isPublic   Boolean
-  freeOrPaid String
-  price      Int?
+  freeOrPaid Float
 
   locationId String   @unique @db.ObjectId
   location   Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
