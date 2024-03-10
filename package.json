@@ -2,6 +2,10 @@
   "name": "locations",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -10,6 +14,8 @@
     "format": "prettier -w ."
   },
   "dependencies": {
+    "@ngneat/falso": "^7.2.0",
+    "@prisma/client": "^5.10.2",
     "@radix-ui/react-icons": "^1.3.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
