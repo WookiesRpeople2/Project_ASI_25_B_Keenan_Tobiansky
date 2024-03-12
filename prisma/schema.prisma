@@ -1,0 +1,68 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Location {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  type    String
+  name    String
+  address String
+  city    String
+  zipCode String
+  country String
+
+  Restaurant Restaurant?
+  Museum     Museum?
+  Bar        Bar?
+  Park       Park?
+}
+
+model Restaurant {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  cuisine  String
+  stars    Int
+  avgPrice Float
+
+  locationId String   @unique @db.ObjectId
+  location   Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
+}
+
+model Museum {
+  id               String @id @default(auto()) @map("_id") @db.ObjectId
+  artisticMovement String
+  artType          String
+  freeOrPaid       Float
+
+  locationId String   @unique @db.ObjectId
+  location   Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
+}
+
+model Bar {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  barType  String
+  avgPrice Float
+
+  locationId String   @unique @db.ObjectId
+  location   Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
+}
+
+model Park {
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  parkType   String
+  isPublic   Boolean
+  freeOrPaid Float
+
+  locationId String   @unique @db.ObjectId
+  location   Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
+}
