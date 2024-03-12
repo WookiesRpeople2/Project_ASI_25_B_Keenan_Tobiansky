@@ -33,4 +33,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: keenan294/locations:v1.0.0-${{ steps.date.outputs.release }}
+          tags: keenan294/locations:v1.0.0-main
