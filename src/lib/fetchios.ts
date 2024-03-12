@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+
 const createReq =
   (method: "GET" | "POST" | "PATCH" | "DELETE") =>
   async (url: string, options: RequestInit): Promise<any> => {
@@ -10,9 +12,11 @@ const createReq =
       ...options,
     })
     const json = await response.json()
+
     if (!response.ok) {
       throw new Error(`${json.message}: ${response.status}`)
     }
+
     return json
   }
 

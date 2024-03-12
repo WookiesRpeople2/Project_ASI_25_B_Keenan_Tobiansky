@@ -30,7 +30,7 @@ export const prepareData = async (types: Array<string>) => {
 export const typeOfPlace = async (
   locationId: string,
   type: string,
-  typeObj: Fields
+  typeObj: Fields,
 ) => {
   const place = { locationId, ...typeObj[type as keyof typeof typeObj] }
   const db = type.toLowerCase()
