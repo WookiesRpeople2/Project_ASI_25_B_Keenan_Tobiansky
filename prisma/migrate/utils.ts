@@ -1,6 +1,6 @@
 import { randAddress } from "@ngneat/falso"
 import { randCompanyName } from "@ngneat/falso"
-import prismaDb from "../../../locations/src/lib/prisma"
+import prismaDb from "../../src/lib/prisma"
 import { Fields } from "../../types"
 import { Prisma } from "@prisma/client"
 
