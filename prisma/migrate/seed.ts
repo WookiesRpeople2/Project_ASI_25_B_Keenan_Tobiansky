@@ -6,6 +6,7 @@ import {
   typesOfBars,
   parkTypes,
 } from "./data"
+import { Fields, GenericKeyOfType } from "../../types"
 
 const MAX_PRICE = 5
 const MIN_PRICE = 1
@@ -43,6 +44,10 @@ const typeObj = () => ({
 ;(async () => {
   for (let i = 0; i < MAX_ITER; i++) {
     const { id, type } = await prepareData(types)
-    await typeOfPlace(id, type, typeObj())
+    await typeOfPlace(
+      id,
+      type as GenericKeyOfType<Fields, keyof Fields>,
+      typeObj(),
+    )
   }
 })()
