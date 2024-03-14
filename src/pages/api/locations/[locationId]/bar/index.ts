@@ -3,28 +3,21 @@ import prismaDb from "@/lib/prisma"
 import { BarApiBody } from "@/schemas/zod_schemas"
 import { validateZod } from "@/middleware/ValidateZod"
 
-const handler = validateZod(
-  BarApiBody,
-  async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
-    const { locationId } = req.query as {
-      locationId: string
-    }
+const handler = validateZod(BarApiBody, async (req, res, params) => {
+  if (req.method === "POST") {
+    const { barType, avgPrice } = await req.body
+    const createdBar = await prismaDb.bar.create({
+      data: {
+        barType,
+        avgPrice,
+        locationId: params.locationId,
+      },
+    })
 
-    if (req.method === "POST") {
-      const { barType, avgPrice } = await req.body
-      const createdBar = await prismaDb.bar.create({
-        data: {
-          barType,
-          avgPrice,
-          locationId,
-        },
-      })
+    return res.status(200).json(createdBar)
+  }
 
-      return res.status(200).json(createdBar)
-    }
-
-    return Promise.resolve()
-  },
-)
+  return Promise.resolve()
+})
 
 export default handler

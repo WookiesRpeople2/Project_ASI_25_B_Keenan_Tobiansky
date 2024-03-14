@@ -3,29 +3,22 @@ import prismaDb from "@/lib/prisma"
 import { RestaurantApiBody } from "@/schemas/zod_schemas"
 import { validateZod } from "@/middleware/ValidateZod"
 
-const handler = validateZod(
-  RestaurantApiBody,
-  async (req: NextApiRequest, res: NextApiResponse): Promise<any> => {
-    const { locationId } = req.query as {
-      locationId: string
-    }
+const handler = validateZod(RestaurantApiBody, async (req, res, params) => {
+  if (req.method === "POST") {
+    const { cuisine, stars, avgPrice } = await req.body
+    const restaurant = await prismaDb.restaurant.create({
+      data: {
+        cuisine,
+        stars,
+        avgPrice,
+        locationId: params.locationId,
+      },
+    })
 
-    if (req.method === "POST") {
-      const { cuisine, stars, avgPrice } = await req.body
-      const restaurant = await prismaDb.restaurant.create({
-        data: {
-          cuisine,
-          stars,
-          avgPrice,
-          locationId,
-        },
-      })
+    return res.status(200).json(restaurant)
+  }
 
-      return res.status(200).json(restaurant)
-    }
-
-    return Promise.resolve()
-  },
-)
+  return Promise.resolve()
+})
 
 export default handler

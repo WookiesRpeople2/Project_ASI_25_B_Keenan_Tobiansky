@@ -26,6 +26,8 @@ model Location {
   Museum     Museum?
   Bar        Bar?
   Park       Park?
+
+  @@unique([name])
 }
 
 model Restaurant {
