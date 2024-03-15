@@ -1,11 +1,24 @@
-import { Inter } from "next/font/google"
+import { Parallax } from "@/components/parallax"
+import { MainLayout } from "@/layouts/mainLayout"
+import type { ReactElement } from "react"
+import type { NextPageWithLayout } from "./_app"
 
-const inter = Inter({ subsets: ["latin"] })
-
-export default function Home() {
+const HomePage: NextPageWithLayout = () => {
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    ></main>
+    <>
+      <div className="relative">
+        <Parallax
+          text="WSG"
+          className="w-full h-screen"
+          imageUrl={[`/HomePageImage.jpg`, `/HomePageImageCut.png`]}
+        />
+      </div>
+    </>
   )
 }
+
+HomePage.getLayout = function getLayout(page: ReactElement) {
+  return <MainLayout>{page}</MainLayout>
+}
+
+export default HomePage
