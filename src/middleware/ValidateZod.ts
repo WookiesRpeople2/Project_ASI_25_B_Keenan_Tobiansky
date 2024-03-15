@@ -1,5 +1,4 @@
 import prismaDb from "@/lib/prisma"
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library"
 import { NextApiRequest, NextApiResponse } from "next"
 import { z } from "zod"
 
@@ -19,6 +18,7 @@ export const validateZod =
   async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const { locationId } = req.query as { locationId: string }
+
       if (req.method === "POST") {
         const exsistingLocation = await prismaDb.location.findFirst({
           where: { id: locationId },

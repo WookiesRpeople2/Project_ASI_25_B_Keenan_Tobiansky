@@ -1,4 +1,3 @@
-import type { NextApiRequest, NextApiResponse } from "next"
 import prismaDb from "@/lib/prisma"
 import { BarApiBody } from "@/schemas/zod_schemas"
 import { validateZod } from "@/middleware/ValidateZod"
