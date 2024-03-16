@@ -33,6 +33,6 @@ export type GenericKeyOfType<
   K extends keyof T,
 > = K
 
-export type OptionsHandler<P> = {
-  params: P
+export type OptionsHandler = {
+  [key: string]: string
 }

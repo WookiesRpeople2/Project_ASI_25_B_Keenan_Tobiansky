@@ -1,9 +1,12 @@
-import type { NextApiRequest, NextApiResponse } from "next"
 import prismaDb from "@/lib/prisma"
 import { ParkApiBody } from "@/schemas/zod_schemas"
 import { validateZod } from "@/middleware/ValidateZod"
 
 const handler = validateZod(ParkApiBody, async (req, res, params) => {
+  if (!params) {
+    return res.status(400).json("Bad params")
+  }
+
   if (req.method === "POST") {
     const { parkType, isPublic, freeOrPaid } = await req.body
     const location = await prismaDb.park.create({
