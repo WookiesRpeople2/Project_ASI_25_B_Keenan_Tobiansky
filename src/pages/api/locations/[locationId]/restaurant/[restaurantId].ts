@@ -1,4 +1,3 @@
-import type { NextApiRequest, NextApiResponse } from "next"
 import prismaDb from "@/lib/prisma"
 import { RestaurantApiBody } from "@/schemas/zod_schemas"
 import { validateZod } from "@/middleware/ValidateZod"
@@ -7,16 +6,11 @@ const handler = validateZod(RestaurantApiBody, async (req, res, params) => {
   const restaurant = await prismaDb.restaurant.findFirst({
     where: {
       id: params.restaurantId,
-      locationId: params.locationId,
     },
   })
 
   if (!restaurant) {
     return res.status(404).json("Error not found")
-  }
-
-  if (req.method === "GET") {
-    return res.status(200).json(restaurant)
   }
 
   if (req.method === "PATCH") {

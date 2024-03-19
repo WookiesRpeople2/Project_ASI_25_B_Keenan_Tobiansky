@@ -1,12 +1,11 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { Separator } from "@radix-ui/react-separator"
+import { Search } from "./search"
 
 export const Nav = () => {
   const pathname = usePathname()
-
   const links = [
     { label: "Home", link: "/", active: pathname === "/" },
     { label: "Add", link: "/add", active: pathname === "/add" },
@@ -27,6 +26,7 @@ export const Nav = () => {
             {label}
           </Link>
         ))}
+        <Search />
       </div>
       <Separator />
     </nav>
