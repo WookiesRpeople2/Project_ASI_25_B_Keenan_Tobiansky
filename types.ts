@@ -28,12 +28,11 @@ export type Fields = {
   Park: Park
 }
 
-export type HTTPOptions<T> = {
-  headers?: Record<string, string>
-  body?: Record<string, T>
-  mode?: string
-  cache?: string
-  credentials?: string
-  redirect?: string
-  referrerPolicy?: string
+export type GenericKeyOfType<
+  T extends Record<string, any>,
+  K extends keyof T,
+> = K
+
+export type OptionsHandler = {
+  [key: string]: string
 }
