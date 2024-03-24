@@ -14,18 +14,19 @@ datasource db {
 }
 
 model Location {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
-  type    String
-  name    String
-  address String
-  city    String
-  zipCode String
-  country String
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  type        String
+  name        String
+  address     String
+  city        String
+  zipCode     String
+  country     String
+  coordinates Float[]
 
-  Restaurant Restaurant?
-  Museum     Museum?
-  Bar        Bar?
-  Park       Park?
+  restaurant Restaurant?
+  museum     Museum?
+  bar        Bar?
+  park       Park?
 
   @@unique([name])
 }

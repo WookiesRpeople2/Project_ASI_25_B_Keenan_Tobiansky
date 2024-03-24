@@ -6,7 +6,7 @@ import {
   typesOfBars,
   parkTypes,
 } from "./data"
-import { Fields, GenericKeyOfType } from "../../types"
+import { Fields, GenericKeyOfType } from "./types"
 
 const MAX_PRICE = 5
 const MIN_PRICE = 1

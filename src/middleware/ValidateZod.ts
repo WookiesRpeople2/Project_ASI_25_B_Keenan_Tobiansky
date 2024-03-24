@@ -1,6 +1,8 @@
 import prismaDb from "@/lib/prisma"
+import { LocationApiBody, typeOfSchema } from "@/schemas/zod_schemas"
 import { NextApiRequest, NextApiResponse } from "next"
 import { z } from "zod"
+import { serialize } from "./serialize"
 
 type Params = {
   [key: string]: string
@@ -8,7 +10,6 @@ type Params = {
 
 export const validateZod =
   (
-    bodySchema: z.ZodSchema,
     handler: (
       _req: NextApiRequest,
       _res: NextApiResponse,
@@ -17,18 +18,17 @@ export const validateZod =
   ) =>
   async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-      const { locationId } = req.query as { locationId: string }
-
-      if (req.method === "POST") {
-        req.body = await bodySchema.parseAsync(req.body)
+      const { locationId, type } = req.query as {
+        locationId: string
+        type: "bar" | "restaurant" | "museum" | "park"
       }
 
-      const exsistingLocation = await prismaDb.location.findFirst({
-        where: { id: locationId },
-      })
+      if (req.method === "POST") {
+        if (type) {
+          req.body = await typeOfSchema[type].parseAsync(req.body)
+        }
 
-      if (!exsistingLocation) {
-        throw new Error("This Location does not exsist")
+        req.body = await LocationApiBody.parseAsync(req.body)
       }
 
       const params = req.query as Params
