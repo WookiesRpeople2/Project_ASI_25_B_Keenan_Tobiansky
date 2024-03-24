@@ -1,9 +1,12 @@
-import type { NextApiRequest, NextApiResponse } from "next"
 import prismaDb from "@/lib/prisma"
 import { LocationApiBody } from "@/schemas/zod_schemas"
 import { validateZod } from "@/middleware/ValidateZod"
 
 const handler = validateZod(LocationApiBody, async (req, res, params) => {
+  if (!params) {
+    return res.status(400).json("Bad params")
+  }
+
   const location = await prismaDb.location.findFirst({
     where: {
       id: params.locationId,

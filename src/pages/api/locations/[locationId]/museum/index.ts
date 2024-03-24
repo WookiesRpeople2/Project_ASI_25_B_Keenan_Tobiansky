@@ -3,6 +3,7 @@ import { MuseumApiBody } from "@/schemas/zod_schemas"
 import { validateZod } from "@/middleware/ValidateZod"
 
 const handler = validateZod(MuseumApiBody, async (req, res, params) => {
+
   if (req.method === "GET") {
     const museum = await prismaDb.museum.findFirst({
       where: {

@@ -3,6 +3,7 @@ import { BarApiBody } from "@/schemas/zod_schemas"
 import { validateZod } from "@/middleware/ValidateZod"
 
 const handler = validateZod(BarApiBody, async (req, res, params) => {
+
   if (req.method === "GET") {
     const bar = await prismaDb.bar.findFirst({
       where: {

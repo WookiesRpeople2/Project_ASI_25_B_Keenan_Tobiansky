@@ -3,6 +3,10 @@ import { RestaurantApiBody } from "@/schemas/zod_schemas"
 import { validateZod } from "@/middleware/ValidateZod"
 
 const handler = validateZod(RestaurantApiBody, async (req, res, params) => {
+  if (!params) {
+    return res.status(400).json("Bad params")
+  }
+
   const restaurant = await prismaDb.restaurant.findFirst({
     where: {
       id: params.restaurantId,

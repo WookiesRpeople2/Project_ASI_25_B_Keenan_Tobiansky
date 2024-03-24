@@ -13,3 +13,7 @@ export type GenericKeyOfType<
   T extends Record<string, any>,
   K extends keyof T,
 > = K
+
+export type OptionsHandler = {
+  [key: string]: string
+}

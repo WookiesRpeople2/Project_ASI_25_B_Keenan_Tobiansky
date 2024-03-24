@@ -3,6 +3,10 @@ import { ParkApiBody } from "@/schemas/zod_schemas"
 import { validateZod } from "@/middleware/ValidateZod"
 
 const handler = validateZod(ParkApiBody, async (req, res, params) => {
+  if (!params) {
+    return res.status(400).json("Bad params")
+  }
+
   const park = await prismaDb.park.findFirst({
     where: {
       id: params.parkId,
@@ -12,6 +16,7 @@ const handler = validateZod(ParkApiBody, async (req, res, params) => {
   if (!park) {
     return res.status(404).json("Error not found")
   }
+
 
   if (req.method === "POST") {
     const data = await req.body
