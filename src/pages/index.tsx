@@ -1,11 +1,47 @@
-import { Inter } from "next/font/google"
+import { Heading } from "@/components/Heading"
+import { LocationCard } from "@/components/locationCard"
+import { Parallax } from "@/components/parallax"
+import { useSetLocations } from "@/hooks/useSetLocations"
+import { fetchios } from "@/lib/utils"
+import { Location } from "@prisma/client"
+import Link from "next/link"
 
-const inter = Inter({ subsets: ["latin"] })
+export const getServerSideProps = async () => {
+  try {
+    const { data } = await fetchios.get("locations")
 
-export default function Home() {
+    return { props: { data } }
+  } catch (error) {
+    return { props: { data: error } }
+  }
+}
+
+const HomePage = ({ data }: { data: Location[] }) => {
+  const { locations } = useSetLocations(data)
+
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    ></main>
+    <>
+      <div className="relative">
+        <Parallax
+          text="WSG"
+          className="w-full h-screen"
+          imageUrl={[`/HomePageImage.jpg`, `/HomePageImageCut.png`]}
+        />
+      </div>
+      <Heading
+        title="Locations"
+        description="see all of the registered locations"
+        className="px-20"
+      />
+      <div className="grid grid-rows-4 grid-cols-3 gap-20 px-20 py-2">
+        {locations.map((location) => (
+          <Link key={location.id} href={`/${location.id}/${location.type}`}>
+            <LocationCard location={location} />
+          </Link>
+        ))}
+      </div>
+    </>
   )
 }
+
+export default HomePage

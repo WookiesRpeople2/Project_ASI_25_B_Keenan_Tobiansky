@@ -17,6 +17,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
+  "ignorePatterns": ["src/components/ui/*"],
   "rules": {
     "array-callback-return": [
       "error",

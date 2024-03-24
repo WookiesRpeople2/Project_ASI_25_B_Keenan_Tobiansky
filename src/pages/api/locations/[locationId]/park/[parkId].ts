@@ -10,7 +10,6 @@ const handler = validateZod(ParkApiBody, async (req, res, params) => {
   const park = await prismaDb.park.findFirst({
     where: {
       id: params.parkId,
-      locationId: params.locationId,
     },
   })
 
@@ -18,8 +17,14 @@ const handler = validateZod(ParkApiBody, async (req, res, params) => {
     return res.status(404).json("Error not found")
   }
 
-  if (req.method === "GET") {
-    return res.status(200).json(park)
+
+  if (req.method === "POST") {
+    const data = await req.body
+    const location = await prismaDb.park.create({
+      data,
+    })
+
+    return res.status(200).json(location)
   }
 
   if (req.method === "PATCH") {

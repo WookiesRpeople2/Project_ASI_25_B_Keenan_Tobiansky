@@ -1,25 +1,4 @@
-export type Restaurant = {
-  cuisine: string
-  stars: number
-  avgPrice: number
-}
-
-export type Museum = {
-  artisticMovement: string
-  artType: string
-  freeOrPaid: number
-}
-
-export type Bar = {
-  barType: string
-  avgPrice: number
-}
-
-export type Park = {
-  parkType: string
-  isPublic: boolean
-  freeOrPaid: number
-}
+import { Restaurant, Bar, Museum, Park } from "@prisma/client"
 
 export type Fields = {
   Restaurant: Restaurant
@@ -27,6 +6,8 @@ export type Fields = {
   Bar: Bar
   Park: Park
 }
+
+export type ORFields = Restaurant | Bar | Museum | Park
 
 export type GenericKeyOfType<
   T extends Record<string, any>,

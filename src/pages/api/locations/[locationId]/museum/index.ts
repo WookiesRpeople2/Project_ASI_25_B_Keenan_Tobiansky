@@ -3,8 +3,19 @@ import { MuseumApiBody } from "@/schemas/zod_schemas"
 import { validateZod } from "@/middleware/ValidateZod"
 
 const handler = validateZod(MuseumApiBody, async (req, res, params) => {
-  if (!params) {
-    return res.status(400).json("Bad params")
+
+  if (req.method === "GET") {
+    const museum = await prismaDb.museum.findFirst({
+      where: {
+        locationId: params.locationId,
+      },
+    })
+
+    if (!museum) {
+      return res.status(404).json("Error not found")
+    }
+
+    return res.status(200).json(museum)
   }
 
   if (req.method === "POST") {

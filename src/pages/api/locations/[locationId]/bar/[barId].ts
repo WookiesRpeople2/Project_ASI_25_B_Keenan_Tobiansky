@@ -10,16 +10,11 @@ const handler = validateZod(BarApiBody, async (req, res, params) => {
   const bar = await prismaDb.bar.findFirst({
     where: {
       id: params.barId,
-      locationId: params.locationId,
     },
   })
 
   if (!bar) {
     return res.status(404).json("Not Found")
-  }
-
-  if (req.method === "GET") {
-    return res.status(200).json(bar)
   }
 
   if (req.method === "PATCH") {

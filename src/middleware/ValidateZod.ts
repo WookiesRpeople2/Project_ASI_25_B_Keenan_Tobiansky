@@ -17,15 +17,15 @@ export const validateZod =
       const { locationId } = req.query as { locationId: string }
 
       if (req.method === "POST") {
-        const exsistingLocation = await prismaDb.location.findFirst({
-          where: { id: locationId },
-        })
-
-        if (!exsistingLocation) {
-          throw new Error("This already exsists")
-        }
-
         req.body = await bodySchema.parseAsync(req.body)
+      }
+
+      const exsistingLocation = await prismaDb.location.findFirst({
+        where: { id: locationId },
+      })
+
+      if (!exsistingLocation) {
+        throw new Error("This Location does not exsist")
       }
 
       const params = req.query as OptionsHandler

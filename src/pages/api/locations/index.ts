@@ -4,7 +4,7 @@ import { validateZod } from "@/middleware/ValidateZod"
 
 const handler = validateZod(LocationApiBody, async (req, res) => {
   if (req.method === "GET") {
-    const locations = await prismaDb.location.findMany({})
+    const locations = await prismaDb.location.findMany({ take: 10 })
 
     return res.status(200).json(locations)
   }
