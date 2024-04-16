@@ -10,6 +10,10 @@ type Action =
   | { type: "CREATE_LOCATIONS"; payload: Location }
   | { type: "UPDATE_LOCATIONS"; payload: Location }
   | { type: "DELETE_LOCATIONS"; payload: { id: string } }
+  | {
+      type: "FILTER_LOCATIONS"
+      payload: { typeOfLocation: string }
+    }
 
 type Dispatch = (action: Action) => void
 
@@ -45,6 +49,15 @@ export const LocationsReducer = (state: State, action: Action): State => {
         ...state,
         locations: state.locations.filter(
           (location) => location.id !== action.payload.id,
+        ),
+      }
+
+    case "FILTER_LOCATIONS":
+      return {
+        ...state,
+        locations: state.locations.filter(
+          (location) =>
+            location.type.toLowerCase() === action.payload.typeOfLocation,
         ),
       }
 
