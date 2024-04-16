@@ -95,11 +95,11 @@ export class Fetchios {
     return await this.sendReq<T>(endPoint, "POST", options)
   }
 
-  public async patch<T>(endPoint: string, options: FetchRequest<T>) {
+  public async patch<T>(endPoint: string, options?: FetchRequest<T>) {
     return await this.sendReq<T>(endPoint, "PATCH", options)
   }
 
-  public async delete<T>(endPoint: string, options: FetchRequest<T>) {
+  public async delete<T>(endPoint: string, options?: FetchRequest<T>) {
     return await this.sendReq<T>(endPoint, "DELETE", options)
   }
 }

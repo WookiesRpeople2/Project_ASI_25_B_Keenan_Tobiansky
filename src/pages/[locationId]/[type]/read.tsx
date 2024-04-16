@@ -25,7 +25,7 @@ export const getServerSideProps: GetServerSideProps<{
 }> = async ({ params }: { params?: ParsedUrlQuery }) => {
   try {
     const { data }: { data: InitialValues } = await fetchios.get(
-      `locations/${params?.locationId}/${params?.type}`,
+      `locations/${params?.locationId}`,
     )
 
     return {
@@ -45,7 +45,7 @@ export const getServerSideProps: GetServerSideProps<{
 
 type LocationPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
-const LocationPage = ({ data, params }: LocationPageProps) => {
+const LocationPage: React.FC<LocationPageProps> = ({ data, params }) => {
   const { name, address, city, country, type, zipCode, coordinates, ...rest } =
     data
   const { bar, museum, park, restaurant } = rest

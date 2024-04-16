@@ -18,17 +18,14 @@ export const validateZod =
   ) =>
   async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-      const { locationId, type } = req.query as {
+      const { locationId } = req.query as {
         locationId: string
-        type: "bar" | "restaurant" | "museum" | "park"
       }
-
+      const { type } = req.body as {
+        type: "Bar" | "Restaurant" | "Museum" | "Park"
+      }
       if (req.method === "POST") {
-        if (type) {
-          req.body = await typeOfSchema[type].parseAsync(req.body)
-        }
-
-        req.body = await LocationApiBody.parseAsync(req.body)
+        req.body = await typeOfSchema[type].parseAsync(req.body)
       }
 
       const params = req.query as Params

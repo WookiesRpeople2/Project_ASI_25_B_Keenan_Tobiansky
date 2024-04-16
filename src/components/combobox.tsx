@@ -16,7 +16,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { ChevronsDownUp, ChevronsRight } from "lucide-react"
+import { ChevronsUpDown, ChevronsRight } from "lucide-react"
 
 type ComboboxObject = {
   value: string
@@ -24,18 +24,26 @@ type ComboboxObject = {
 }
 
 type ComboboxProps = {
-  selectValues: ComboboxObject[]
+  values?: ComboboxObject[]
   onClick: (value: string) => void
   defaultValue: string
 }
 
+const initialValues = [
+  { label: "Restaurant", value: "restaurant" },
+  { label: "Bar", value: "bar" },
+  { label: "Park", value: "park" },
+  { label: "Museum", value: "museum" },
+]
+
 export const Combobox: React.FC<ComboboxProps> = ({
-  selectValues,
+  values,
   defaultValue,
   onClick,
 }) => {
   const [open, setOpen] = useState(false)
   const [value, setValue] = useState("")
+  const selectValues = values ? values : initialValues
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -50,13 +58,13 @@ export const Combobox: React.FC<ComboboxProps> = ({
             ? selectValues.find((selectValue) => selectValue.value === value)
                 ?.label
             : defaultValue}
-          <ChevronsDownUp className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
         <Command>
-          <CommandInput placeholder="Search framework..." className="h-9" />
-          <CommandEmpty>No framework found.</CommandEmpty>
+          <CommandInput placeholder="Search..." className="h-9" />
+          <CommandEmpty>No resaults found.</CommandEmpty>
           <CommandGroup>
             {selectValues.map((selectValue) => (
               <CommandItem

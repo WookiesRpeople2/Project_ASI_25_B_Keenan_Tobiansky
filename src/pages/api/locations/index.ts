@@ -11,12 +11,42 @@ const handler = validateZod(async (req, res) => {
   }
 
   if (req.method === "POST") {
-    const data = await req.body
-    const createdLocation = await prismaDb.location.create({
-      data,
-    })
+    try {
+      const {
+        name,
+        address,
+        city,
+        zipCode,
+        country,
+        coordinates,
+        type,
+        ...locationData
+      } = req.body
 
-    return res.status(200).json(serialize(createdLocation, ["id"]))
+      const createdLocation = await prismaDb.location.create({
+        data: {
+          name,
+          address,
+          city,
+          zipCode,
+          country,
+          coordinates,
+          type,
+          [type.toLowerCase()]: {
+            create: locationData,
+          },
+        },
+        include: {
+          [type.toLowerCase()]: true,
+        },
+      })
+
+      return res
+        .status(200)
+        .json(serialize(createdLocation, ["id", "locationId"]))
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return Promise.resolve()

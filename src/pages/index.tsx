@@ -1,7 +1,8 @@
 import { Combobox } from "@/components/combobox"
-import { Heading } from "@/components/Heading"
+import { Title } from "@/components/title"
 import { LocationCard } from "@/components/locationCard"
 import { Parallax } from "@/components/parallax"
+import { SearchAdresse } from "@/components/searchAdresse"
 import { useLocations } from "@/hooks/useLocations"
 import { useSetLocations } from "@/hooks/useSetLocations"
 import { fetchios } from "@/lib/utils"
@@ -18,13 +19,6 @@ export const getServerSideProps = async () => {
     return { props: { data: error } }
   }
 }
-
-const selectedValues = [
-  { label: "Restaurant", value: "restaurant" },
-  { label: "Bar", value: "bar" },
-  { label: "Park", value: "park" },
-  { label: "Museum", value: "museum" },
-]
 
 const HomePage = ({ data }: { data: Location[] }) => {
   const { state, dispatch } = useLocations()
@@ -51,24 +45,15 @@ const HomePage = ({ data }: { data: Location[] }) => {
         />
       </div>
       <div className="px-20">
-        <Heading
+        <Title
           title="Locations"
           description="see all of the registered locations"
         />
-        <Combobox
-          selectValues={selectedValues}
-          onClick={handleChange}
-          defaultValue="filter"
-        />
+        <Combobox onClick={handleChange} defaultValue="filter" />
       </div>
       <div className="grid grid-rows-4 grid-cols-3 gap-20 px-20 py-6">
         {state.locations.map((location) => (
-          <Link
-            key={location.id}
-            href={`/locations/${location.id}/${location.type.toLowerCase()}`}
-          >
-            <LocationCard location={location} />
-          </Link>
+          <LocationCard key={location.id} location={location} />
         ))}
       </div>
     </>
