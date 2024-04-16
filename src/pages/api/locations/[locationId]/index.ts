@@ -8,7 +8,7 @@ const handler = validateZod(async (req, res, params) => {
     const data = await req.body
     const updatedLocation = await prismaDb.location.update({
       where: {
-        id: params.locationId,
+        id: params?.locationId,
       },
       data,
     })
@@ -25,7 +25,7 @@ const handler = validateZod(async (req, res, params) => {
   if (req.method === "DELETE") {
     const deletedLocation = await prismaDb.location.delete({
       where: {
-        id: params.locationId,
+        id: params?.locationId,
       },
     })
 
