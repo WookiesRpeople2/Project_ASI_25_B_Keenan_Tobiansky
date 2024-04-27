@@ -1,7 +1,7 @@
-import { randAddress } from "@ngneat/falso"
+import { randAddress, randLatitude, randLongitude } from "@ngneat/falso"
 import { randCompanyName } from "@ngneat/falso"
 import prismaDb from "../../src/lib/prisma"
-import { Fields } from "../../types"
+import { Fields, GenericKeyOfType } from "./types"
 import { Prisma } from "@prisma/client"
 
 export const randn = (max: number) => Math.floor(Math.random() * max)
@@ -12,12 +12,16 @@ export const prepareData = async (types: Array<string>) => {
     includeCounty: false,
   })
   const name = randCompanyName()
+  const lat = randLatitude()
+  const long = randLongitude()
+  const coordinates = [lat, long]
   const typeIndex = randn(types.length)
 
   const location = {
     type: types[typeIndex],
     name,
     address: street,
+    coordinates,
     ...info,
   }
 
@@ -29,12 +33,12 @@ export const prepareData = async (types: Array<string>) => {
 
 export const typeOfPlace = async (
   locationId: string,
-  type: string,
+  type: GenericKeyOfType<Fields, keyof Fields>,
   typeObj: Fields,
 ) => {
-  const place = { locationId, ...typeObj[type as keyof typeof typeObj] }
   const db = type.toLowerCase()
+  const location = { locationId, ...typeObj[type] }
   const prismaInstance: { [key: string]: any } = prismaDb
 
-  await prismaInstance[db].create({ data: place })
+  await prismaInstance[db].create({ data: location })
 }

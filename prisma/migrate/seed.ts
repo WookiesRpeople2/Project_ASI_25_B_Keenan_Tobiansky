@@ -6,11 +6,12 @@ import {
   typesOfBars,
   parkTypes,
 } from "./data"
+import { Fields, GenericKeyOfType } from "./types"
 
 const MAX_PRICE = 5
 const MIN_PRICE = 1
 const MIN_STARS = 1
-const MAX_ITER = 200
+const MAX_ITER = 50
 const MAX_STARS = 3
 
 const types = ["Restaurant", "Museum", "Bar", "Park"]
@@ -42,7 +43,15 @@ const typeObj = () => ({
 
 ;(async () => {
   for (let i = 0; i < MAX_ITER; i++) {
-    const { id, type } = await prepareData(types)
-    await typeOfPlace(id, type, typeObj())
+    try {
+      const { id, type } = await prepareData(types)
+      await typeOfPlace(
+        id,
+        type as GenericKeyOfType<Fields, keyof Fields>,
+        typeObj(),
+      )
+    } catch (error) {
+      continue // in case the name is the same
+    }
   }
 })()

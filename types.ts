@@ -1,25 +1,4 @@
-export type Restaurant = {
-  cuisine: string
-  stars: number
-  avgPrice: number
-}
-
-export type Museum = {
-  artisticMovement: string
-  artType: string
-  freeOrPaid: number
-}
-
-export type Bar = {
-  barType: string
-  avgPrice: number
-}
-
-export type Park = {
-  parkType: string
-  isPublic: boolean
-  freeOrPaid: number
-}
+import { Restaurant, Bar, Museum, Park } from "@prisma/client"
 
 export type Fields = {
   Restaurant: Restaurant
@@ -28,12 +7,13 @@ export type Fields = {
   Park: Park
 }
 
-export type HTTPOptions<T> = {
-  headers?: Record<string, string>
-  body?: Record<string, T>
-  mode?: string
-  cache?: string
-  credentials?: string
-  redirect?: string
-  referrerPolicy?: string
+export type ORFields = Restaurant | Bar | Museum | Park
+
+export type GenericKeyOfType<
+  T extends Record<string, any>,
+  K extends keyof T,
+> = K
+
+export type OptionsHandler = {
+  [key: string]: string
 }
