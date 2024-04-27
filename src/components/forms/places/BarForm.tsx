@@ -1,6 +1,5 @@
 import React from "react"
 import {
-  Form,
   FormControl,
   FormField,
   FormItem,
@@ -8,14 +7,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Switch } from "@/components/ui/switch"
 import { SliderField } from "../sildeField"
-import { Control, useForm } from "react-hook-form"
-import { BarFormschema } from "@/schemas/zod_schemas"
-import { z } from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
-
-type FormSchema = z.infer<typeof BarFormschema>
 
 type BarFormProps = {
   form: any

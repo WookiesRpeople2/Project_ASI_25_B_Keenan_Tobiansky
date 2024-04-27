@@ -6,6 +6,7 @@ export function middleware(req: NextRequest) {
   if (!["bar", "museum", "restaurant", "park"].includes(type as string)) {
     return NextResponse.redirect(new URL("/", req.url))
   }
+
   return NextResponse.next()
 }
 

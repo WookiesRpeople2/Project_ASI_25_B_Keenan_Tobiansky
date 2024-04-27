@@ -1,3 +1,4 @@
+import React from "react"
 import { BarClient } from "@/components/places/barClient"
 import { MuseumClient } from "@/components/places/museumClient"
 import { ParkClient } from "@/components/places/parkClient"
@@ -46,10 +47,8 @@ export const getServerSideProps: GetServerSideProps<{
 type LocationPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const LocationPage: React.FC<LocationPageProps> = ({ data, params }) => {
-  const { name, address, city, country, type, zipCode, coordinates, ...rest } =
-    data
+  const { name, address, city, country, zipCode, coordinates, ...rest } = data
   const { bar, museum, park, restaurant } = rest
-
   const getClient = () => {
     switch (params?.type) {
       case "restaurant":
@@ -60,8 +59,10 @@ const LocationPage: React.FC<LocationPageProps> = ({ data, params }) => {
             avgPrice={restaurant.avgPrice}
           />
         )
+
       case "bar":
         return <BarClient barType={bar.barType} avgPrice={bar.avgPrice} />
+
       case "park":
         return (
           <ParkClient
@@ -70,6 +71,7 @@ const LocationPage: React.FC<LocationPageProps> = ({ data, params }) => {
             isPublic={park.isPublic}
           />
         )
+
       case "museum":
         return (
           <MuseumClient
@@ -78,6 +80,9 @@ const LocationPage: React.FC<LocationPageProps> = ({ data, params }) => {
             freeOrPaid={museum.freeOrPaid}
           />
         )
+
+      default:
+        return null
     }
   }
 

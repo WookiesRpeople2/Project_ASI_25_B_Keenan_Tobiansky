@@ -6,7 +6,7 @@ export const useSetLocations = (data: Location[]) => {
   const { state, dispatch } = useLocations()
   useEffect(() => {
     dispatch({ type: "SET_LOCATIONS", payload: data })
-  }, [dispatch])
+  }, [dispatch, data])
 
   return state
 }

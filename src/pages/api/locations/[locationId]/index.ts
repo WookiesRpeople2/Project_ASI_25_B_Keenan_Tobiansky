@@ -1,5 +1,4 @@
 import prismaDb from "@/lib/prisma"
-import { LocationApiBody } from "@/schemas/zod_schemas"
 import { validateZod } from "@/middleware/ValidateZod"
 import { serialize } from "@/middleware/serialize"
 
@@ -44,7 +43,6 @@ const handler = validateZod(async (req, res, params) => {
       type,
       ...locationData
     } = req.body
-
     const updatedLocation = await prismaDb.location.update({
       where: {
         id: params.locationId,

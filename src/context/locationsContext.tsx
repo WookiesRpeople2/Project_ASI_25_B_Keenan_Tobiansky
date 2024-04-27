@@ -15,7 +15,7 @@ type Action =
       payload: { typeOfLocation: string }
     }
 
-type Dispatch = (action: Action) => void
+type Dispatch = (_action: Action) => void
 
 export const LocationsContext = createContext<{
   state: State

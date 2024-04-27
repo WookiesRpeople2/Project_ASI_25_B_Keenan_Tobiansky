@@ -1,5 +1,4 @@
 import prismaDb from "@/lib/prisma"
-import { LocationApiBody } from "@/schemas/zod_schemas"
 import { validateZod } from "@/middleware/ValidateZod"
 import { serialize } from "@/middleware/serialize"
 
@@ -22,7 +21,6 @@ const handler = validateZod(async (req, res) => {
         type,
         ...locationData
       } = req.body
-
       const createdLocation = await prismaDb.location.create({
         data: {
           name,
@@ -45,7 +43,9 @@ const handler = validateZod(async (req, res) => {
         .status(200)
         .json(serialize(createdLocation, ["id", "locationId"]))
     } catch (error) {
-      console.log(error)
+      return res
+        .status(412)
+        .json("Please check that the form is filled in properly")
     }
   }
 

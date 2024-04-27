@@ -6,6 +6,7 @@ import { Pencil, Trash2 } from "lucide-react"
 import { fetchios } from "@/lib/utils"
 import { useLocations } from "@/hooks/useLocations"
 import Link from "next/link"
+import { toast } from "react-hot-toast"
 
 type LocationCardProps = {
   location: Location
@@ -14,7 +15,7 @@ type LocationCardProps = {
 export const LocationCard: React.FC<LocationCardProps> = ({
   location: { id, name, type, address, city, country, zipCode },
 }) => {
-  const { state, dispatch } = useLocations()
+  const { dispatch } = useLocations()
   const handleOnClick = async () => {
     try {
       const res = await fetchios.delete(`/locations/${id}`)
@@ -22,10 +23,14 @@ export const LocationCard: React.FC<LocationCardProps> = ({
       if (res.statusCode === 200) {
         dispatch({ type: "DELETE_LOCATIONS", payload: { id } })
       }
-    } catch (error) {
-      console.log(error)
+    } catch (error: any) {
+      toast.error(
+        "This location could not be created due to this error: ",
+        error,
+      )
     }
   }
+
   return (
     <div className="transition-transform transform hover:scale-125">
       <div className="h-full w-full rounded-md backdrop-filter backdrop-blur-sm bg-white p-8 shadow-lg">

@@ -1,6 +1,5 @@
 import React from "react"
 import {
-  Form,
   FormControl,
   FormField,
   FormItem,
@@ -9,12 +8,6 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { SliderField } from "../sildeField"
-import { Control, useForm } from "react-hook-form"
-import { MuseumFormSchema } from "@/schemas/zod_schemas"
-import { z } from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
-
-type FormSchema = z.infer<typeof MuseumFormSchema>
 
 type MuseumFormProps = {
   form: any

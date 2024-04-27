@@ -1,13 +1,10 @@
-import { Combobox } from "@/components/combobox"
+import { Combobox } from "@/components/combobox/combobox"
 import { Title } from "@/components/title"
 import { LocationCard } from "@/components/locationCard"
 import { Parallax } from "@/components/parallax"
-import { SearchAdresse } from "@/components/searchAdresse"
 import { useLocations } from "@/hooks/useLocations"
-import { useSetLocations } from "@/hooks/useSetLocations"
 import { fetchios } from "@/lib/utils"
 import { Location } from "@prisma/client"
-import Link from "next/link"
 import { useEffect } from "react"
 
 export const getServerSideProps = async () => {
@@ -19,19 +16,15 @@ export const getServerSideProps = async () => {
     return { props: { data: error } }
   }
 }
-
 const HomePage = ({ data }: { data: Location[] }) => {
   const { state, dispatch } = useLocations()
-
   useEffect(() => {
     dispatch({ type: "SET_LOCATIONS", payload: data })
-  }, [dispatch])
-
+  }, [dispatch, data])
   const handleChange = (value: string) => {
     const filteredLocations = value
       ? data.filter((location) => location.type.toLowerCase() === value)
       : data
-
     dispatch({ type: "SET_LOCATIONS", payload: filteredLocations })
   }
 

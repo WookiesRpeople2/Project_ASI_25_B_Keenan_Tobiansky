@@ -1,5 +1,4 @@
-import { useState } from "react"
-import { FormLabel } from "../ui/form"
+import React, { useState } from "react"
 import { Slider } from "../ui/slider"
 import {
   Tooltip,
@@ -12,7 +11,7 @@ type SliderFieldProps = {
   maxValue: number
   minValue: number
   defaultValue: number
-  onValueChange: (value: number) => void
+  onValueChange: (_value: number) => void
 }
 
 export const SliderField: React.FC<SliderFieldProps> = ({
@@ -21,7 +20,8 @@ export const SliderField: React.FC<SliderFieldProps> = ({
   defaultValue,
   onValueChange,
 }) => {
-  const [value, setValue] = useState<number>(defaultValue)
+  const [sliderValue, setSliderValue] = useState<number>(defaultValue)
+
   return (
     <>
       <TooltipProvider>
@@ -34,12 +34,12 @@ export const SliderField: React.FC<SliderFieldProps> = ({
               step={1}
               onValueChange={(value) => {
                 onValueChange(value[0])
-                setValue(value[0])
+                setSliderValue(value[0])
               }}
             />
           </TooltipTrigger>
           <TooltipContent>
-            <p>{value}</p>
+            <p>{sliderValue}</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>

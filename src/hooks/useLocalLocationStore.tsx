@@ -9,7 +9,7 @@ type State = {
 }
 
 type Actions = {
-  setLocation: (location: State["location"]) => void
+  setLocation: (_location: State["location"]) => void
 }
 
 export const useLocalLocationStore = create<State & Actions>((set) => ({
