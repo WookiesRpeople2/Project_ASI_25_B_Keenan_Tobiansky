@@ -1,5 +1,4 @@
 import { Html, Main, NextScript, Head } from "next/document"
-import { HEAD } from "@/components/next/head"
 
 export default function Document() {
   return (

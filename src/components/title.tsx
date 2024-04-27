@@ -8,7 +8,7 @@ type HeadingProps = {
   className?: string
 }
 
-export const Heading: React.FC<HeadingProps> = ({
+export const Title: React.FC<HeadingProps> = ({
   title,
   description,
   className,

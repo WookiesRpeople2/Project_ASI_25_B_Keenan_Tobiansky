@@ -10,7 +10,7 @@ export class Fetchios {
     this.baseUrl = baseUrl
   }
 
-  private makeRequest = async <T>(
+  private static makeRequest = async <T>(
     url: string,
     options: FetchRequest<T>,
   ): Promise<FetchResponse<T>> => {
@@ -41,7 +41,7 @@ export class Fetchios {
 
               resolve(res)
             } else {
-              reject("Bad request")
+              reject(new Error("Bad request"))
             }
           })
 
@@ -54,6 +54,7 @@ export class Fetchios {
       if (options.body) {
         request.write(options.body)
       }
+
       request.end()
     })
   }
@@ -68,9 +69,9 @@ export class Fetchios {
     if (this.baseUrl && !url.endsWith("/")) {
       url += "/"
     }
+
     url += endPoint
     const uri = URL.parse(url)
-
     const reqOptions: FetchRequest<T> = {
       hostname: uri.hostname,
       path: uri.path,
@@ -78,13 +79,9 @@ export class Fetchios {
       method,
       ...opt,
     }
+    const res = await Fetchios.makeRequest<T>(url, reqOptions)
 
-    try {
-      const res = await this.makeRequest<T>(url, reqOptions)
-      return res
-    } catch (error) {
-      throw error
-    }
+    return res
   }
 
   public async get<T>(endPoint: string, options?: FetchRequest<T>) {
@@ -95,11 +92,11 @@ export class Fetchios {
     return await this.sendReq<T>(endPoint, "POST", options)
   }
 
-  public async patch<T>(endPoint: string, options: FetchRequest<T>) {
+  public async patch<T>(endPoint: string, options?: FetchRequest<T>) {
     return await this.sendReq<T>(endPoint, "PATCH", options)
   }
 
-  public async delete<T>(endPoint: string, options: FetchRequest<T>) {
+  public async delete<T>(endPoint: string, options?: FetchRequest<T>) {
     return await this.sendReq<T>(endPoint, "DELETE", options)
   }
 }

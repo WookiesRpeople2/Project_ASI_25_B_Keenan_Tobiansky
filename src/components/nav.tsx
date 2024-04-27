@@ -8,7 +8,7 @@ export const Nav = () => {
   const pathname = usePathname()
   const links = [
     { label: "Home", link: "/", active: pathname === "/" },
-    { label: "Add", link: "/add", active: pathname === "/add" },
+    { label: "Add", link: "/create", active: pathname === "/create" },
   ]
 
   return (

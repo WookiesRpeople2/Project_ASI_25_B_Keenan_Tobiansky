@@ -1,8 +1,9 @@
-import prismaDb from "@/lib/prisma"
-import { LocationApiBody, typeOfSchema } from "@/schemas/zod_schemas"
+import { typeOfSchema } from "@/schemas/zod_schemas"
 import { NextApiRequest, NextApiResponse } from "next"
-import { z } from "zod"
-import { OptionsHandler } from "../../types"
+
+type Params = {
+  [key: string]: string
+}
 
 export const validateZod =
   (
@@ -14,17 +15,12 @@ export const validateZod =
   ) =>
   async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-      const { locationId, type } = req.query as {
-        locationId: string
-        type: "bar" | "restaurant" | "museum" | "park"
+      const { type } = req.body as {
+        type: "Bar" | "Restaurant" | "Museum" | "Park"
       }
 
       if (req.method === "POST") {
-        if (type) {
-          req.body = await typeOfSchema[type].parseAsync(req.body)
-        }
-
-        req.body = await LocationApiBody.parseAsync(req.body)
+        req.body = await typeOfSchema[type].parseAsync(req.body)
       }
 
       const params = req.query as OptionsHandler

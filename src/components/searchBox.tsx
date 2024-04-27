@@ -1,5 +1,6 @@
 import { Input } from "@/components/ui/input"
 import { fetchios } from "@/lib/utils"
+import { useRouter } from "next/router"
 import { useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 
@@ -9,7 +10,8 @@ type Inputs = {
 
 export const SearchBox = () => {
   const { handleSubmit, register } = useForm<Inputs>()
-  const [error, setError] = useState("")
+  const [_error, setError] = useState("")
+  const router = useRouter()
   const onSubmit: SubmitHandler<Inputs> = async ({ search }) => {
     try {
       const res = await fetchios.post("search", {
@@ -18,6 +20,10 @@ export const SearchBox = () => {
           "Content-Type": "application/json",
         },
       })
+
+      if (res.statusCode === 200) {
+        router.push("/search")
+      }
     } catch (error: any) {
       setError(error)
     }
@@ -26,7 +32,7 @@ export const SearchBox = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Input placeholder="search for a location" {...register("search")} />
-      {error && <p className="text-red-700">{error}</p>}
+      {_error && <p className="text-red-700">{_error}</p>}
     </form>
   )
 }
