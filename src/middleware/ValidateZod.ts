@@ -10,7 +10,7 @@ export const validateZod =
     handler: (
       _req: NextApiRequest,
       _res: NextApiResponse,
-      _params?: OptionsHandler,
+      _params: Params,
     ) => Promise<void>,
   ) =>
   async (req: NextApiRequest, res: NextApiResponse) => {
@@ -23,7 +23,7 @@ export const validateZod =
         req.body = await typeOfSchema[type].parseAsync(req.body)
       }
 
-      const params = req.query as OptionsHandler
+      const params = req.query as Params
 
       return await handler(req, res, params)
     } catch (error: any) {
