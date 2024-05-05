@@ -17,6 +17,9 @@ RUN adduser --system --uid 1001 nextjs
 
 USER root
 
+RUN apt-get update &&
+  apt-get install -y docker-compose
+
 ARG DATABASE_URL
 ENV DATABASE_URL=${DATABASE_URL}
 
