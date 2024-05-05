@@ -78,6 +78,8 @@ docker-compose down
 docker-compose up -d
 ```
 
+
+
 ```bash
 npx prisma generate
 ```
