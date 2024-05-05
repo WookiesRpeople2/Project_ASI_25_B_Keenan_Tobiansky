@@ -17,6 +17,9 @@ RUN adduser --system --uid 1001 nextjs
 
 USER root
 
+RUN curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+RUN chmod +x /usr/local/bin/docker-compose
+
 ARG DATABASE_URL
 ENV DATABASE_URL=${DATABASE_URL}
 
