@@ -1,4 +1,7 @@
-import React, { useState } from "react"
+import { sliderAtom } from "@/atoms/atoms"
+import { useAtom } from "jotai"
+import { useHydrateAtoms } from "jotai/utils"
+import React from "react"
 import { Slider } from "../ui/slider"
 import {
   Tooltip,
@@ -20,7 +23,8 @@ export const SliderField: React.FC<SliderFieldProps> = ({
   defaultValue,
   onValueChange,
 }) => {
-  const [sliderValue, setSliderValue] = useState<number>(defaultValue)
+  useHydrateAtoms([[sliderAtom, defaultValue]])
+  const [sliderValue, setSliderValue] = useAtom(sliderAtom)
 
   return (
     <>

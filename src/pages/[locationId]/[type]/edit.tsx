@@ -3,7 +3,7 @@ import { UpdateLocationForm } from "@/components/forms/updateLocationForm"
 import { Title } from "@/components/title"
 import prismaDb from "@/lib/prisma"
 import { GetServerSideProps, InferGetServerSidePropsType } from "next"
-import { ParsedUrlQuery } from "querystring"
+import { LocationsTogether } from "@/types"
 
 export type Prisma = {
   [x: string]: never
@@ -19,9 +19,7 @@ export type Prisma = {
   coordinates: number[]
 }
 
-export const getServerSideProps: GetServerSideProps<{
-  prisma: Prisma
-}> = async ({ params }: { params?: ParsedUrlQuery }) => {
+export const getServerSideProps = (async ({ params, locale }) => {
   const prisma = (await prismaDb.location.findFirst({
     where: {
       id: params?.locationId as string,
@@ -34,17 +32,22 @@ export const getServerSideProps: GetServerSideProps<{
   return {
     props: {
       prisma,
+      messages: (await import(`../../../../messages/${locale}.json`)).default,
     },
   }
-}
+}) satisfies GetServerSideProps<{ prisma: Prisma }>
 
 type EditPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
-const EditPage: React.FC<EditPageProps> = ({ prisma }) => (
-  <div className="flex flex-col items-center justify-center h-screen">
-    <Title title="Update a location" />
-    <UpdateLocationForm location={prisma} />
-  </div>
-)
+const EditPage: React.FC<EditPageProps> = ({ prisma }) => {
+  const location = prisma as LocationsTogether
+
+  return (
+    <div className="flex flex-col items-center justify-center h-screen">
+      <Title title="Update a location" />
+      <UpdateLocationForm location={location} />
+    </div>
+  )
+}
 
 export default EditPage

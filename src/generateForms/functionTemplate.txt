@@ -1,0 +1,21 @@
+import React from "react";
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+
+{{sliderImport}}
+
+type {{fnName}}Props = {
+  form: any
+}
+
+export const {{fnName}}: React.FC<{{fnName}}Props> = ({form}) => (
+  <>
+    {{formFields}}
+  </>
+);

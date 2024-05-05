@@ -33,4 +33,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: keenan294/locations:v1.0.0-main
+          tags: keenan294/locations:v1.1.0-main
+          build-args: |
+            DATABASE_URL=${{ secrets.DATABASE_URL }}

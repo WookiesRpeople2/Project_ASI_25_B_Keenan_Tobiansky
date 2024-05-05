@@ -2,31 +2,49 @@ import { Combobox } from "@/components/combobox/combobox"
 import { Title } from "@/components/title"
 import { LocationCard } from "@/components/locationCard"
 import { Parallax } from "@/components/parallax"
-import { useLocations } from "@/hooks/useLocations"
 import { fetchios } from "@/lib/utils"
-import { Location } from "@prisma/client"
-import { useEffect } from "react"
+import { useAtom } from "jotai"
+import { useHydrateAtoms } from "jotai/utils"
+import { locationsAtom } from "@/atoms/atoms"
+import React, { useCallback } from "react"
+import { useTranslations } from "next-intl"
+import { GetServerSideProps, InferGetServerSidePropsType } from "next"
+import { TypeOfLocation } from "../types"
 
-export const getServerSideProps = async () => {
-  try {
-    const { data } = await fetchios.get("locations")
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  const { data } = await fetchios.get("locations")
 
-    return { props: { data } }
-  } catch (error) {
-    return { props: { data: error } }
+  return {
+    props: {
+      data,
+      messages: (await import(`../../messages/${locale}.json`)).default,
+    },
   }
 }
-const HomePage = ({ data }: { data: Location[] }) => {
-  const { state, dispatch } = useLocations()
-  useEffect(() => {
-    dispatch({ type: "SET_LOCATIONS", payload: data })
-  }, [dispatch, data])
+
+type HomePageProps = InferGetServerSidePropsType<typeof getServerSideProps>
+
+const HomePage: React.FC<HomePageProps> = ({ data }) => {
+  useHydrateAtoms([[locationsAtom, data]])
+  const [locations, setLocations] = useAtom(locationsAtom)
+  const t = useTranslations()
   const handleChange = (value: string) => {
-    const filteredLocations = value
-      ? data.filter((location) => location.type.toLowerCase() === value)
-      : data
-    dispatch({ type: "SET_LOCATIONS", payload: filteredLocations })
+    setLocations(filteredLocations(value))
   }
+  const filteredLocations = useCallback(
+    (filterValue: string) => {
+      if (!filterValue) {
+        return data
+      }
+
+      return data.filter(
+        ({ type }: { type: TypeOfLocation }) =>
+          type.toLowerCase() === filterValue,
+      )
+    },
+
+    [data],
+  )
 
   return (
     <>
@@ -38,14 +56,11 @@ const HomePage = ({ data }: { data: Location[] }) => {
         />
       </div>
       <div className="px-20">
-        <Title
-          title="Locations"
-          description="see all of the registered locations"
-        />
-        <Combobox onClick={handleChange} defaultValue="filter" />
+        <Title title={t("Home.title")} description={t("Home.description")} />
+        <Combobox onClick={handleChange} />
       </div>
       <div className="grid grid-rows-4 grid-cols-3 gap-20 px-20 py-6">
-        {state.locations.map((location) => (
+        {locations.map((location) => (
           <LocationCard key={location.id} location={location} />
         ))}
       </div>
