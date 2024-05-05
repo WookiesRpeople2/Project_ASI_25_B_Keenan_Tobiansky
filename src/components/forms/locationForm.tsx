@@ -16,40 +16,16 @@ import { useTranslations } from "next-intl"
 
 type LocationFormProps = {
   type: TypeOfLocation
+  form: any
 }
 
-type FormSchema = z.infer<
+export type FormSchema = z.infer<
   (typeof typeOfFormSchema)[keyof typeof typeOfFormSchema]
 >
 
-const extraFields = {
-  cuisine: "",
-  stars: 0,
-  avgPrice: 0.1,
-  parkType: "",
-  isPublic: false,
-  freeOrPaid: 0,
-  artisticMovement: "",
-  artType: "",
-  barType: "",
-}
-
-export const LocationForm: React.FC<LocationFormProps> = ({ type }) => {
+export const LocationForm: React.FC<LocationFormProps> = ({ type, form }) => {
   const router = useRouter()
   const t = useTranslations()
-  const form = useForm<FormSchema>({
-    resolver: zodResolver(typeOfFormSchema[type]),
-    defaultValues: {
-      type,
-      name: "",
-      address: "",
-      city: "",
-      zipCode: "",
-      country: "",
-      coordinates: [0, 0],
-      ...extraFields,
-    },
-  })
   const onSubmit = async (values: FormSchema) => {
     const res = await fetchios.post("locations", {
       body: JSON.stringify(values),
@@ -57,7 +33,7 @@ export const LocationForm: React.FC<LocationFormProps> = ({ type }) => {
         "Content-Type": "application/json",
       },
     })
-
+    console.log(values)
     if (res.statusCode === 200) {
       router.push("/")
       toast.success(t("LocationForm.successMessage"))
