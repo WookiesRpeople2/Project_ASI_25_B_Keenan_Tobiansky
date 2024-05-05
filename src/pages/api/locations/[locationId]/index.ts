@@ -29,7 +29,7 @@ const handler = validateZod(async (req, res, params) => {
 
     return res
       .status(200)
-      .json(serialize(locationWithRelatedData, ["locationId, id"]))
+      .json(serialize(locationWithRelatedData, ["locationId", "id"]))
   }
 
   if (req.method === "PATCH") {

@@ -21,3 +21,5 @@ export const getFormFields = (type: string, form: any) => {
       return null
   }
 }
+
+export const types = ["Restaurant", "Museum", "Park", "Bar"]

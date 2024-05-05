@@ -2,13 +2,14 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { Separator } from "@radix-ui/react-separator"
-import { Search } from "./search"
+import { useTranslations } from "next-intl"
 
 export const Nav = () => {
+  const t = useTranslations()
   const pathname = usePathname()
   const links = [
     { label: "Home", link: "/", active: pathname === "/" },
-    { label: "Add", link: "/create", active: pathname === "/create" },
+    { label: t("Nav.add"), link: "/create", active: pathname === "/create" },
   ]
 
   return (
@@ -26,7 +27,6 @@ export const Nav = () => {
             {label}
           </Link>
         ))}
-        <Search />
       </div>
       <Separator />
     </nav>

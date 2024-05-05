@@ -4,7 +4,6 @@ import React from "react"
 import { Button } from "./ui/button"
 import { Pencil, Trash2 } from "lucide-react"
 import { fetchios } from "@/lib/utils"
-import { useLocations } from "@/hooks/useLocations"
 import Link from "next/link"
 import { toast } from "react-hot-toast"
 
@@ -15,13 +14,12 @@ type LocationCardProps = {
 export const LocationCard: React.FC<LocationCardProps> = ({
   location: { id, name, type, address, city, country, zipCode },
 }) => {
-  const { dispatch } = useLocations()
   const handleOnClick = async () => {
     try {
       const res = await fetchios.delete(`/locations/${id}`)
 
       if (res.statusCode === 200) {
-        dispatch({ type: "DELETE_LOCATIONS", payload: { id } })
+        toast.success("Location succsessfully deleted")
       }
     } catch (error: any) {
       toast.error(

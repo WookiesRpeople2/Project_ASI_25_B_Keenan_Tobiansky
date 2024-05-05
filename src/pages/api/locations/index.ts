@@ -4,7 +4,7 @@ import { serialize } from "@/middleware/serialize"
 
 const handler = validateZod(async (req, res) => {
   if (req.method === "GET") {
-    const locations = await prismaDb.location.findMany({ take: 10 })
+    const locations = await prismaDb.location.findMany()
 
     return res.status(200).json(locations)
   }
@@ -43,9 +43,7 @@ const handler = validateZod(async (req, res) => {
         .status(200)
         .json(serialize(createdLocation, ["id", "locationId"]))
     } catch (error) {
-      return res
-        .status(412)
-        .json("Please check that the form is filled in properly")
+      return res.status(412).json("This location name already exsists")
     }
   }
 

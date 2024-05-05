@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { CommandItem } from "@/components/ui/command"
@@ -9,10 +9,12 @@ import {
 } from "@/components/ui/popover"
 import { ChevronsUpDown, ChevronsRight } from "lucide-react"
 import { CommandCustom } from "./commandCustom"
+import { useAtom } from "jotai"
+import { openAtom, valueAtom } from "@/atoms/atoms"
+import { useTranslations } from "next-intl"
 
 type ComboboxProps = {
   onClick: (_value: string) => void
-  defaultValue: string
 }
 
 const initialValues = [
@@ -22,12 +24,10 @@ const initialValues = [
   { label: "Museum", value: "museum" },
 ]
 
-export const Combobox: React.FC<ComboboxProps> = ({
-  defaultValue,
-  onClick,
-}) => {
-  const [open, setOpen] = useState(false)
-  const [_value, setValue] = useState("")
+export const Combobox: React.FC<ComboboxProps> = ({ onClick }) => {
+  const [open, setOpen] = useAtom(openAtom)
+  const [_value, setValue] = useAtom(valueAtom)
+  const t = useTranslations()
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -41,7 +41,7 @@ export const Combobox: React.FC<ComboboxProps> = ({
           {_value
             ? initialValues.find((selectValue) => selectValue.value === _value)
                 ?.label
-            : defaultValue}
+            : t("ComboBox.filter")}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -64,7 +64,7 @@ export const Combobox: React.FC<ComboboxProps> = ({
                   _value === selectValue.value ? "opacity-100" : "opacity-0",
                 )}
               />
-              {selectValue.label}
+              {t(`ComboBox.tabs.${selectValue.value}`)}
             </CommandItem>
           ))}
         </CommandCustom>

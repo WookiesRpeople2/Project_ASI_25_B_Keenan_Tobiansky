@@ -1,0 +1,55 @@
+{
+  "Home": {
+    "title": "Locations",
+    "description": "See all of the registered locations."
+  },
+  "Create": {
+    "title": "Create a Location",
+    "tab": {
+      "Restaurant": "Restaurant",
+      "Museum": "Museum",
+      "Bar": "Bar",
+      "Park": "Park"
+    }
+  },
+  "Nav": {
+    "add": "Add"
+  },
+  "LocationForm": {
+    "fields": {
+      "name": "Name",
+      "address": "Address",
+      "city": "City",
+      "zipCode": "Zip Code",
+      "country": "Country",
+      "coordinates": {
+        "0": "Longitude",
+        "1": "Latitude"
+      },
+      "cuisine": "Cuisine",
+      "stars": "Stars",
+      "avgPrice": "Average Price",
+      "parkType": "Park Type",
+      "isPublic": "Is Public",
+      "freeOrPaid": "Free or Paid",
+      "artisticMovement": "Artistic Movement",
+      "artType": "Art Type",
+      "barType": "Bar Type"
+    },
+    "successMessage": "This location has been successfully created.",
+    "errorMessage": "This location name already exists."
+  },
+  "UpdateLocationForm": {
+    "successMessage": "This location has been successfully updated.",
+    "errorMessage": "This location name already exists."
+  },
+  "ComboBox": {
+    "filter": "filter",
+    "tabs": {
+      "restaurant": "Restaurant",
+      "museum": "Museum",
+      "bar": "Bar",
+      "park": "Park"
+    }
+  }
+}

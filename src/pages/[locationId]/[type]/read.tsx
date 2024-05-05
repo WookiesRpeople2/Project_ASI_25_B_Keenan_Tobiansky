@@ -20,29 +20,21 @@ type InitialValues = Location & {
   park: Park
 }
 
-export const getServerSideProps: GetServerSideProps<{
+export const getServerSideProps = (async ({ params }) => {
+  const { data }: { data: InitialValues } = await fetchios.get(
+    `locations/${params?.locationId}`,
+  )
+
+  return {
+    props: {
+      data,
+      params,
+    },
+  }
+}) satisfies GetServerSideProps<{
   data: InitialValues
   params?: ParsedUrlQuery
-}> = async ({ params }: { params?: ParsedUrlQuery }) => {
-  try {
-    const { data }: { data: InitialValues } = await fetchios.get(
-      `locations/${params?.locationId}`,
-    )
-
-    return {
-      props: {
-        data,
-        params,
-      },
-    }
-  } catch (error: any) {
-    return {
-      props: {
-        data: error,
-      },
-    }
-  }
-}
+}>
 
 type LocationPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 

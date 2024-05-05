@@ -17,4 +17,15 @@ RUN adduser --system --uid 1001 nextjs
 
 USER nextjs
 
+ARG DATABASE_URL
+ENV DATABASE_URL=${DATABASE_URL}
+
+RUN touch .env
+RUN echo "DATABASE_URL=${DATABASE_URL}" >>.env
+
+RUN docker-compose -d
+RUN npx prisma db generate
+RUN npx pris db push
+RUN npx prisma db seed
+
 CMD ["npm", "run", "start"]
