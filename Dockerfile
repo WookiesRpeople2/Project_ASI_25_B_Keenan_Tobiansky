@@ -23,9 +23,4 @@ RUN echo "DATABASE_URL=${DATABASE_URL}" >>.env
 
 USER nextjs
 
-RUN docker-compose up -d
-RUN npx prisma db generate
-RUN npx pris db push
-RUN npx prisma db seed
-
 CMD ["npm", "run", "start"]
