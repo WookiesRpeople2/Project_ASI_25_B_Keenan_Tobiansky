@@ -34,7 +34,6 @@ const HomePage: React.FC<HomePageProps> = ({ data }) => {
   const handleChange = (value: string) => {
     setLocations(filteredLocations(value))
   }
-  console.log("reload")
   const filteredLocations = useCallback(
     (filterValue: string) => {
       if (!filterValue) {
