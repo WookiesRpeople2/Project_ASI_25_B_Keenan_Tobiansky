@@ -76,26 +76,3 @@ export const typeOfFormSchema = {
     avgPrice: z.number(),
   }),
 }
-
-export const RestaurantFormSchema = z.object({
-  cuisine: z.string(),
-  stars: z.coerce.number(),
-  avgPrice: z.number(),
-})
-
-export const ParkFormSchema = z.object({
-  parkType: z.string(),
-  isPublic: z.boolean(),
-  freeOrPaid: z.coerce.number(),
-})
-
-export const MuseumFormSchema = z.object({
-  artisticMovement: z.string(),
-  artType: z.string(),
-  freeOrPaid: z.number(),
-})
-
-export const BarFormschema = z.object({
-  barType: z.string(),
-  avgPrice: z.number(),
-})
