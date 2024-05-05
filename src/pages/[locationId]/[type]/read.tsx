@@ -20,7 +20,7 @@ type InitialValues = Location & {
   park: Park
 }
 
-export const getServerSideProps = (async ({ params }) => {
+export const getServerSideProps = (async ({ params, locale }) => {
   const { data }: { data: InitialValues } = await fetchios.get(
     `locations/${params?.locationId}`,
   )
@@ -29,6 +29,7 @@ export const getServerSideProps = (async ({ params }) => {
     props: {
       data,
       params,
+      messages: (await import(`../../../../messages/${locale}.json`)).default,
     },
   }
 }) satisfies GetServerSideProps<{

@@ -6,7 +6,7 @@ import { fetchios } from "@/lib/utils"
 import { useAtom } from "jotai"
 import { useHydrateAtoms } from "jotai/utils"
 import { locationsAtom } from "@/atoms/atoms"
-import React, { useCallback } from "react"
+import React, { useCallback, useEffect } from "react"
 import { useTranslations } from "next-intl"
 import { GetServerSideProps, InferGetServerSidePropsType } from "next"
 import { TypeOfLocation } from "../types"
@@ -27,10 +27,14 @@ type HomePageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 const HomePage: React.FC<HomePageProps> = ({ data }) => {
   useHydrateAtoms([[locationsAtom, data]])
   const [locations, setLocations] = useAtom(locationsAtom)
+  useEffect(() => {
+    setLocations(data)
+  }, [data])
   const t = useTranslations()
   const handleChange = (value: string) => {
     setLocations(filteredLocations(value))
   }
+  console.log("reload")
   const filteredLocations = useCallback(
     (filterValue: string) => {
       if (!filterValue) {

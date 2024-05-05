@@ -8,11 +8,11 @@ import { useAtom } from "jotai"
 import { useTranslations } from "next-intl"
 import { GetServerSideProps } from "next"
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+export const getServerSideProps = (async ({ locale }) => ({
   props: {
     messages: (await import(`../../messages/${locale}.json`)).default,
   },
-})
+})) satisfies GetServerSideProps
 const Create = () => {
   const [activeTab, setActiveTab] = useAtom(tabAtom)
   const t = useTranslations()

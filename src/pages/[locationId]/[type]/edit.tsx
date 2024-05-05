@@ -4,6 +4,7 @@ import { Title } from "@/components/title"
 import prismaDb from "@/lib/prisma"
 import { GetServerSideProps, InferGetServerSidePropsType } from "next"
 import { LocationsTogether } from "@/types"
+import { useTranslations } from "use-intl"
 
 export type Prisma = {
   [x: string]: never
@@ -41,10 +42,11 @@ type EditPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const EditPage: React.FC<EditPageProps> = ({ prisma }) => {
   const location = prisma as LocationsTogether
+  const t = useTranslations()
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <Title title="Update a location" />
+      <Title title={t("Edit.title")} />
       <UpdateLocationForm location={location} />
     </div>
   )

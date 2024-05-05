@@ -12,6 +12,13 @@
       "Park": "Park"
     }
   },
+  "Edit": {
+    "title": "Mettre a jour une endroit"
+  },
+  "Delete": {
+    "successfully": "Cette endroit a ete supprimé",
+    "errorMessage": "il y avait un probleme avec la suppresion de cette endroit"
+  },
   "Nav": {
     "add": "Ajouter"
   },

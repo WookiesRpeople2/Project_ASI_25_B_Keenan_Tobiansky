@@ -12,6 +12,13 @@
       "Park": "Park"
     }
   },
+  "Edit": {
+    "title": "Update a location"
+  },
+  "Delete": {
+    "successfully": "This location was successfully deleted",
+    "errorMessage": "There was a probleme delteing this location"
+  },
   "Nav": {
     "add": "Add"
   },
