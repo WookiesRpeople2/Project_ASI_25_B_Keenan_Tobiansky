@@ -1,7 +1,5 @@
 import React from "react"
 import { useRouter } from "next/navigation"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { typeOfFormSchema } from "@/schemas/zod_schemas"
 import { Form } from "@/components/ui/form"
@@ -33,7 +31,7 @@ export const LocationForm: React.FC<LocationFormProps> = ({ type, form }) => {
         "Content-Type": "application/json",
       },
     })
-    console.log(values)
+
     if (res.statusCode === 200) {
       router.push("/")
       toast.success(t("LocationForm.successMessage"))

@@ -10,7 +10,6 @@ import { GetServerSideProps } from "next"
 import { useForm } from "react-hook-form"
 import { typeOfFormSchema } from "@/schemas/zod_schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useEffect } from "react"
 
 export const getServerSideProps = (async ({ locale }) => ({
   props: {
@@ -57,10 +56,6 @@ const Create = () => {
     })
     setActiveTab(value)
   }
-
-  useEffect(() => {
-    handleOnValuechange
-  }, [activeTab])
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
