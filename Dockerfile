@@ -17,9 +17,6 @@ RUN adduser --system --uid 1001 nextjs
 
 USER root
 
-RUN apt-get update &&
-  apt install -y docker-compose
-
 ARG DATABASE_URL
 ENV DATABASE_URL=${DATABASE_URL}
 
@@ -28,7 +25,7 @@ RUN echo "DATABASE_URL=${DATABASE_URL}" >>.env
 
 USER nextjs
 
-RUN docker-compose -d
+RUN docker-compose up -d
 RUN npx prisma db generate
 RUN npx pris db push
 RUN npx prisma db seed
