@@ -102,8 +102,6 @@ npm run start
 
 ### Seed
 
-### Seed
-
 pour le script de seeding j’ai utilsé une bibliotèque qui s’apple falso, j’ai decider d’utiliser ça parceque falso est **Tree Shakeable ç**a veut dire que les fonctions que l’on n’utilse pas ne sont pas inclus dans la bundle
 
 ### Seed.ts
