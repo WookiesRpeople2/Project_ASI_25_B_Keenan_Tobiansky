@@ -1,0 +1,9 @@
+version: "3.7"
+services:
+  mongo:
+    image: prismagraphql/mongo-single-replica:5.0.3
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: place
+      MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      - 27018:27017

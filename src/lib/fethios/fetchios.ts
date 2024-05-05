@@ -27,11 +27,7 @@ export class Fetchios {
           })
 
           response.on("end", () => {
-            if (
-              response.statusCode &&
-              response.statusCode >= 200 &&
-              response.statusCode < 300
-            ) {
+            if (response.statusCode && response.statusCode >= 200) {
               const res: FetchResponse<T> = {
                 data: JSON.parse(data),
                 statusCode: response.statusCode,

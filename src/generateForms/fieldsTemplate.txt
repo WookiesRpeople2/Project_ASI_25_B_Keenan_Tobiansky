@@ -1,0 +1,13 @@
+<FormField
+  name="{{fieldName}}"
+  control={form.control}
+  render={({ field }) => (
+    <FormItem>
+      <FormLabel>{{fieldLabel}}</FormLabel>
+      <FormControl>
+        {{fieldControl}}
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>

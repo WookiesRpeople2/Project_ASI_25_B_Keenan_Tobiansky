@@ -1,0 +1,52 @@
+{
+  "Home": {
+    "title": "Lieux",
+    "description": "Voir tous les lieux enregistrés."
+  },
+  "Create": {
+    "title": "Créer un lieu",
+    "tab": {
+      "Restaurant": "Restaurant",
+      "Museum": "Musée",
+      "Bar": "Bar",
+      "Park": "Park"
+    }
+  },
+  "Nav": {
+    "add": "Ajouter"
+  },
+  "LocationForm": {
+    "fields": {
+      "name": "Nom",
+      "address": "Adresse",
+      "city": "Ville",
+      "zipCode": "Code postal",
+      "country": "Pays",
+      "coordinates": { "0": "Longitude", "1": "Latitude" },
+      "cuisine": "Cuisine",
+      "stars": "Étoiles",
+      "avgPrice": "Prix moyen",
+      "parkType": "Type de parc",
+      "isPublic": "Est public",
+      "freeOrPaid": "Gratuit ou payant",
+      "artisticMovement": "Mouvement artistique",
+      "artType": "Type d'art",
+      "barType": "Type de bar"
+    },
+    "successMessage": "Ce lieu a été créé avec succès.",
+    "errorMessage": "Ce nom de lieu existe déjà."
+  },
+  "UpdateLocationForm": {
+    "successMessage": "Ce lieu a été mis à jour avec succès.",
+    "errorMessage": "Ce nom de lieu existe déjà."
+  },
+  "ComboBox": {
+    "filter": "filtre",
+    "tabs": {
+      "restaurant": "Restaurant",
+      "museum": "Museum",
+      "bar": "Bar",
+      "park": "Park"
+    }
+  }
+}
